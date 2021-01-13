@@ -1,0 +1,16 @@
+
+
+{% extends 'base.html' %}
+
+{% block encabezado %}
+<h1> Albumes </h1>
+{% endblock %}
+
+  {% block contenido %}
+			{% for row in albumes %}
+			
+			    <dt><b>Titulo: </b>{{row.titulo}}</dt>
+			    <dd><b>Autor: </b>{{row.autor}} | <b>Discografica: </b>{{row.discografica}} | <b>Ranking: </b>{{row.ranking}} </dd>
+			    	    
+			{% endfor %}
+  {% endblock %}
