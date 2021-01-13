@@ -45,4 +45,18 @@ class Migration(migrations.Migration):
                 ('pais', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='main.Pais')),
             ],
         ),
+        migrations.CreateModel(
+            name='Album',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('titulo', models.TextField(verbose_name='Título')),
+                ('ranking', models.TextField(verbose_name='Ranking actual')),
+                ('autor',models.TextField(verbose_name='Autor del álbum')),
+                ('semanas', models.TextField(verbose_name='Semanas en lista')),
+                ('max_posicion', models.TextField(verbose_name='Máxima posición alcanzada')),
+                ('discografica', models.TextField(verbose_name='Discográfica')),
+                ('premios', models.TextField(verbose_name='Premios obtenidos')),
+            ],
+        ),
+        
     ]
