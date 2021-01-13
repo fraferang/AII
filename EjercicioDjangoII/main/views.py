@@ -17,7 +17,7 @@ def populateDB():
     #extraemos los datos de la web con BS
     f = urllib.request.urlopen("https://www.elportaldemusica.es/lists/top-100-albums/2020/53")
     s = BeautifulSoup(f, "lxml")
-    lista_albumes = s.find("div", class_="list-view").find("div", class_="item").find_all("a")
+    lista_albumes = s.find("div", class_="list-view").find_all("a")
     for link_album in lista_albumes:
         f = urllib.request.urlopen("https://www.elportaldemusica.es"+link_album.get('href'))
         s = BeautifulSoup(f, "lxml")
