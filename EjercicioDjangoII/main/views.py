@@ -22,14 +22,22 @@ def populateDB():
     Pelicula.objects.all().delete()
     
     #extraemos los datos de la web con BS
-    f = urllib.request.urlopen("https://www.elseptimoarte.net/estrenos/")
+    ## Intentando sacar los datos de la página
+    f = urllib.request.urlopen("https://www.elportaldemusica.es/lists/top-100-albums/2020/53")
     s = BeautifulSoup(f, "lxml")
-    lista_link_peliculas = s.find("ul", class_="elements").find_all("li")
-    for link_pelicula in lista_link_peliculas:
-        f = urllib.request.urlopen("https://www.elseptimoarte.net/"+link_pelicula.a['href'])
+    lista_link_albumes = s.find("div", class_="list-view").find_all("a")
+    for link_album in lista_link_albumes:
+        f = urllib.request.urlopen(link_album.a['href'])
         s = BeautifulSoup(f, "lxml")
-        aux = s.find("main", class_="informativo").find_all("section",class_="highlight")
-        datos = aux[0].div.dl
+        datos = s.find("section", class_="list-section").find("div", class_="col-sm-8 col-xs-12 items-top-list")
+        posicion = s.find("div", class_="publication_relevant").find("p", class_="single-list-entry-rank-position ").string
+        nombre = s.find("div", class_="publication_data").find("div", class_="name").string
+        autor = s.find("div", class_="publication_data").find("div", class_="related").string   
+        maxPosicion = s.find("div", class_="publication_details").find("div", class_="historical").find("div", class_="max_pos").string
+        tiempoEnLista = s.find("div", class_="publication_details").find("div", class_="historical").find("div", class_="list_week").string
+        
+        
+        ## Esto es lo viejo
         titulo_original = datos.find("dt",string="Título original").find_next_sibling("dd").string.strip()
         #si no tiene título se pone el título original
         if (datos.find("dt",string="Título")):
