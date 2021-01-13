@@ -25,18 +25,17 @@ def populateDB():
     ## Intentando sacar los datos de la página
     f = urllib.request.urlopen("https://www.elportaldemusica.es/lists/top-100-albums/2020/53")
     s = BeautifulSoup(f, "lxml")
-    lista_link_albumes = s.find("div", class_="list-view").find_all("a")
-    for link_album in lista_link_albumes:
-        f = urllib.request.urlopen(link_album.a['href'])
+    lista_albumes = s.find("div", class_="list-view").find("div", class_="item").find_all("a")
+    for link_album in lista_albumes:
+        f = urllib.request.urlopen("https://www.elportaldemusica.es"+link_album.get('href'))
         s = BeautifulSoup(f, "lxml")
-        datos = s.find("section", class_="list-section").find("div", class_="col-sm-8 col-xs-12 items-top-list")
-        posicion = s.find("div", class_="publication_relevant").find("p", class_="single-list-entry-rank-position ").string
-        nombre = s.find("div", class_="publication_data").find("div", class_="name").string
-        autor = s.find("div", class_="publication_data").find("div", class_="related").string   
-        maxPosicion = s.find("div", class_="publication_details").find("div", class_="historical").find("div", class_="max_pos").string
-        tiempoEnLista = s.find("div", class_="publication_details").find("div", class_="historical").find("div", class_="list_week").string
-        
-        
+        datos = s.find("div", class_="container-fluid text-center").div
+        posicion = datos.find("div", class_="name").string
+        print(posicion)
+        nombre = datos.find("div", class_="publication_data").find("div", class_="name").string
+        autor = datos.find("div", class_="publication_data").find("div", class_="related").string   
+        maxPosicion = datos.find("div", class_="publication_details").find("div", class_="historical").find("div", class_="max_pos").string
+        tiempoEnLista = datos.find("div", class_="publication_details").find("div", class_="historical").find("div", class_="list_week").string   
         ## Esto es lo viejo
         titulo_original = datos.find("dt",string="Título original").find_next_sibling("dd").string.strip()
         #si no tiene título se pone el título original
