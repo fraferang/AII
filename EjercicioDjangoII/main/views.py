@@ -73,7 +73,7 @@ def lista_albumes(request):
     albumes=Album.objects.all()
     return render(request,'albumes.html', {'albumes':albumes})
 
-#muestra la lista de albumes agrupadas por paises
+#muestra la lista de albumes agrupadas por ranking
 def lista_album_ranking(request):
     albumes=Album.objects.all().order_by('ranking')
     return render(request,'album-por-ranking.html', {'albumes':albumes})

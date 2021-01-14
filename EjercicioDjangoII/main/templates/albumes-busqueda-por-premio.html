@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block encabezado %}
+<h1> Busqueda de Albumes por Premio </h1>
+{% endblock %}
+
+{% block contenido %}
+
+
+    	<form id="formulario" method="post" action=''>{% csrf_token %}
+    		{{formulario}}
+    		<input type='submit' value='Realizar Busqueda'/>
+    	</form>
+	    
+	    <hr>
+
+	    {% if albumes %}
+		    <h3> Total de Albumes del Premio:  {{ albumes|length }}</h3>
+
+			{% for row in albumes %}
+			    <dt><b>Titulo: </b>{{row.titulo}}</dt>
+                <dd><b>Autor: </b>{{row.autor}} | <b>Discográfica: </b>{{row.discofrafica}}</dd>
+                <dt><b>Premio: </b>{{row.premios}}</dt>
+			{% endfor %}
+
+		{% endif %}
+{% endblock %}

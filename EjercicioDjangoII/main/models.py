@@ -44,3 +44,8 @@ class Album(models.Model):
     def __str__(self):
         return self.titulo
     
+class Premio(models.Model):
+    nombre = models.IntegerField(null=True, max_length=20, verbose_name='Premios obtenidos')
+
+    def __str__(self):
+        return self.nombre
