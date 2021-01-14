@@ -22,13 +22,21 @@ def populateDB():
         f = urllib.request.urlopen("https://www.elportaldemusica.es"+link_album.get('href'))
         s = BeautifulSoup(f, "lxml")
         datos = s.find("div", class_="container-fluid text-center").div
-        ranking = datos.find("div", class_="publication_relevant").find("p", class_="single-list-entry-rank-position").string
+        ranking = datos.find("div", class_="publication_relevant").find("p", class_="single-list-entry-rank-position")
+        if(ranking == None):
+            ranking = 0
+        else:
+            ranking = ranking.string
         titulo = datos.find("div", class_="name").string
         autor = datos.find("div", class_="subname").find("a", class_="external").string
         semanas_en_lista = datos.find("div",class_="list_week").string
         maxPosicion = datos.find("div", class_="max_pos").string
         discografica = datos.find("div", class_="detail_one").string
-        premios = datos.find("span", class_="number").string
+        premios = datos.find("span", class_="number")
+        if(premios == None):
+            premios = 0
+        else:
+            premios = premios.string
         
         #almacenamos en la BD
         a = Album.objects.create(titulo = titulo, ranking = ranking,

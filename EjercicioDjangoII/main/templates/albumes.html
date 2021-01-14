@@ -10,7 +10,13 @@
 			{% for row in albumes %}
 			
 			    <dt><b>Titulo: </b>{{row.titulo}}</dt>
-			    <dd><b>Autor: </b>{{row.autor}} | <b>Discografica: </b>{{row.discografica}} | <b>Ranking: </b>{{row.ranking}} </dd>
+				<dt><b>Autor: </b>{{row.autor}}</dt>
+				<dt><b>Discográfica: </b>{{row.discografica}}</dt>
+				<dt><b>Ranking actual: </b>{{row.ranking}}</dt>
+				<dt><b>Premios: </b>{{row.premios}}</dt>
+				<dt><b>Semanas en lista: </b>{{row.semanas}}</dt>
+				<br>
+				<br>
 			    	    
 			{% endfor %}
   {% endblock %}

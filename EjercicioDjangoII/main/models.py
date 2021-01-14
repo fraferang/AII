@@ -34,12 +34,12 @@ class Pelicula(models.Model):
 ## Clase Álbum
 class Album(models.Model):
     titulo = models.TextField(verbose_name='Título')
-    ranking = models.IntegerField(max_length=20,verbose_name='Ranking actual')
+    ranking = models.IntegerField(null=True,max_length=20,verbose_name='Ranking actual')
     autor = models.TextField(verbose_name='Autor del álbum')
     semanas = models.TextField(verbose_name='Semanas en lista')
     max_posicion = models.TextField(verbose_name='Máxima posición alcanzada')
     discografica = models.TextField(verbose_name='Discográfica')
-    premios = models.IntegerField(max_length=20, verbose_name='Premios obtenidos')
+    premios = models.IntegerField(null=True, max_length=20, verbose_name='Premios obtenidos')
 
     def __str__(self):
         return self.titulo
