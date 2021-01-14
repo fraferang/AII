@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block encabezado %}
+<h1> Albumes agrupados por ranking </h1>
+{% endblock %}
+
+{% block contenido %}
+            {% regroup albumes by ranking as grouped %}
+            {% for group in grouped %}
+                <h3>Ranking: {{group.grouper}} ({{group.list|length}} albumes)</h3>
+                    {% for row in group.list %}
+                        <dt><b>Titulo: </b>{{row.titulo}}</dt>
+                        <dd><b>Autor: </b>{{row.autor}} | <b>Discográfica: </b>{{row.discofrafica}}</dd>
+                        
+            {% endfor %}
+                </div>
+            {% endfor %}
+{% endblock %}

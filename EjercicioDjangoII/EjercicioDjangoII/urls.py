@@ -7,5 +7,5 @@ urlpatterns = [
     path('',views.inicio),
     path('carga/',views.carga),
     path('albumes/', views.lista_albumes),
-    path('albumesporranking/', views.lista_albumesporranking),
+    path('album-por-ranking/', views.lista_album_ranking)
     ]
