@@ -28,13 +28,11 @@ from datetime import datetime
 def recibir_datos():
     f = urllib.request.urlopen("https://www.eventbrite.es/d/spain/music--events/?page=1")
     s = BeautifulSoup(f, "lxml")
-    lista_albumes = s.find("ul", class_="search-main-content__events-list").find_all("li")
-    print(lista_albumes)
+    lista_albumes = s.find("ul", class_="search-main-content__events-list").find_all("div")
     for link_album in lista_albumes:
-        print(link_album.get('href'))
-        f = urllib.request.urlopen("https://www.eventbrite.es/"+link_album.get('href'))
+        f = urllib.request.urlopen(link_album.a['href'])
         s = BeautifulSoup(f, "lxml")
-        datos = s.find("ul", class_="search-main-content__events-list")
+        datos = s.find("div", class_="g-group")
         print(datos)
     
         
