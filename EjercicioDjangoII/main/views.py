@@ -11,7 +11,6 @@ from datetime import datetime
 def populateDB():
     #variables para contar el número de registros que vamos a almacenar
     num_albumes = 0
-    num_autores = 0
     
     #borramos todas las tablas de la BD
     Album.objects.all().delete()
@@ -31,7 +30,7 @@ def populateDB():
         else:
             ranking = ranking.string
         titulo = datos.find("div", class_="name").string
-        autor = datos.find("div", class_="subname").find("a", class_="external").string.strip()
+        autor = datos.find("div", class_="subname").find("a", class_="external").string
         semanas_en_lista = datos.find("div",class_="list_week").string
         maxPosicion = datos.find("div", class_="max_pos").string
         discografica = datos.find("div", class_="detail_one").string
@@ -43,24 +42,19 @@ def populateDB():
         
         #almacenamos en la BD
 
-        lista_autores_obj = []
-        for aut in autor:
-            autor_obj, creado = Autor.objects.get_or_create(nombre=aut)
-            lista_autores_obj.append(autor_obj)
-            if creado:
-                num_autores = num_autores + 1
         a = Album.objects.create(titulo = titulo, ranking = ranking,
                                 semanas = semanas_en_lista,                               
                                 max_posicion = maxPosicion,
                                 discografica = discografica,
                                 premios = premios)
-        #añadimos la lista de premios
-        for autores in lista_autores_obj:
-            a.autor.add(autores)
-        num_autores = num_autores + 1
+        #añadimos el autor
+        aut = Autor.objects.create(nombre=autor)
+        a.autor.add(aut)
+
+
         num_albumes = num_albumes + 1
 
-    return ((num_albumes,num_autores))
+    return ((num_albumes))
         
 #carga los datos desde la web en la BD
 def carga(request):
