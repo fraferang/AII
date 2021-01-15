@@ -3,18 +3,43 @@
 <head>
   <meta charset='utf-8'>
   <style>
-   {% block style_css %}{% endblock %}
+   {% block style_css %}
+   .topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #3385FF;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #3385FF;
+  color: white;
+}
+   {% endblock %}
   </style>
 </head>
 <body>
   <header> 
   	{% block encabezado %}{% endblock %}
-
- 			<dd><a href='/'>Inicio</a></dd>
-			<dd><a href='/albumes'>Lista de albumes</a></dd>
-			<dd><a href='/album-por-ranking'>Albumes agrupados por ranking</a></dd>
-			<dd><a href='/albumes-busqueda-por-autor'>Albumes agrupados por autores</a></dd>
-			<dd><a href='/carga'>Cargar la BD</a></dd>
+			<div class="topnav"> 
+ 			<a href='/' class="inicio">Inicio</a>
+			<a href='/albumes' class="button">Lista de albumes</a>
+			<a href='/album-por-ranking' class="button">Albumes agrupados por ranking</a>
+			<a href='/albumes-busqueda-por-autor' class="button">Albumes agrupados por autores</a>
+			<a href='/carga' class="button">Cargar la BD</a>
+			</div>
 	<hr>
   </header>
   <section>
