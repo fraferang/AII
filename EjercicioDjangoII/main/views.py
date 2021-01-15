@@ -1,6 +1,7 @@
 #encoding:utf-8
 from main.forms import BusquedaPorAutorForm
-from main.models import Album, Autor
+from main.forms import BusquedaPorSemanasForm
+from main.models import Album, Autor, Semanas
 from django.shortcuts import render, redirect
 from bs4 import BeautifulSoup
 import urllib.request
@@ -15,6 +16,7 @@ def populateDB():
     #borramos todas las tablas de la BD
     Album.objects.all().delete()
     Autor.objects.all().delete()
+    Semanas.objects.all().delete()
     
     #extraemos los datos de la web con BS
     f = urllib.request.urlopen("https://www.elportaldemusica.es/lists/top-100-albums/2020/53")
@@ -31,7 +33,7 @@ def populateDB():
             ranking = ranking.string
         titulo = datos.find("div", class_="name").string
         autor = datos.find("div", class_="subname").find("a", class_="external").string
-        semanas_en_lista = datos.find("div",class_="list_week").string
+        semanas= datos.find("div",class_="list_week").string
         maxPosicion = datos.find("div", class_="max_pos").string
         discografica = datos.find("div", class_="detail_one").string
         premios = datos.find("span", class_="number")
@@ -43,13 +45,16 @@ def populateDB():
         #almacenamos en la BD
 
         a = Album.objects.create(titulo = titulo, ranking = ranking,
-                                semanas = semanas_en_lista,                               
                                 max_posicion = maxPosicion,
                                 discografica = discografica,
                                 premios = premios)
         #añadimos el autor
         aut = Autor.objects.create(nombre=autor)
         a.autor.add(aut)
+        
+        #añadimos las semanas
+        sem = Semanas.objects.create(nombre=semanas)
+        a.semanas.add(sem)
 
 
         num_albumes = num_albumes + 1
@@ -100,4 +105,16 @@ def buscar_albumes_autor(request):
             albumes = autor.album_set.all()
             
     return render(request, 'albumes-busqueda-por-autor.html', {'formulario':formulario, 'albumes':albumes})
+
+def buscar_albumes_semanas(request):
+    formulario = BusquedaPorSemanasForm()
+    albumes = None
+    
+    if request.method=='POST':
+        formulario = BusquedaPorSemanasForm(request.POST)      
+        if formulario.is_valid():
+            semanas=Semanas.objects.get(id=formulario.cleaned_data['semanas'])
+            albumes = semanas.album_set.all()
+            
+    return render(request, 'albumes-busqueda-por-semanas.html', {'formulario':formulario, 'albumes':albumes})
     
