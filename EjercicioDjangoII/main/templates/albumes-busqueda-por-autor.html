@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block encabezado %}
-<h1> Busqueda de Albumes por Premio </h1>
+<h1> Busqueda de Albumes por Autores </h1>
 {% endblock %}
 
 {% block contenido %}
@@ -15,11 +15,16 @@
 	    <hr>
 
 	    {% if albumes %}
-		    <h3> Total de Albumes del Premio:  {{ albumes|length }}</h3>
+		    <h3> Total de Albumes del autor:  {{ albumes|length }}</h3>
 
 			{% for row in albumes %}
 			    <dt><b>Titulo: </b>{{row.titulo}}</dt>
-                <dd><b>Autor: </b>{{row.autor}} | <b>Discográfica: </b>{{row.discofrafica}}</dd>
+                <dd> <b>Autores: </b>
+					{% for aut in row.autor.all %}
+						{{aut.nombre}} 
+					{% endfor %}
+					</dd>
+				<dt><b>Discrográfica; </b>{{row.discografica}}</dt>
                 <dt><b>Premio: </b>{{row.premios}}</dt>
 			{% endfor %}
 

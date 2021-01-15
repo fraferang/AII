@@ -10,7 +10,11 @@
 			{% for row in albumes %}
 			
 			    <dt><b>Titulo: </b>{{row.titulo}}</dt>
-				<dt><b>Autor: </b>{{row.autor}}</dt>
+				<dd> <b>Autores: </b>
+					{% for aut in row.autor.all %}
+						{{aut.nombre}} 
+					{% endfor %}
+					</dd>		
 				<dt><b>Discográfica: </b>{{row.discografica}}</dt>
 				<dt><b>Ranking actual: </b>{{row.ranking}}</dt>
 				<dt><b>Premios: </b>{{row.premios}}</dt>

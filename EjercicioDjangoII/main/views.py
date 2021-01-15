@@ -1,5 +1,6 @@
 #encoding:utf-8
-from main.models import Album
+from main.forms import BusquedaPorAutorForm
+from main.models import Album, Autor
 from django.shortcuts import render, redirect
 from bs4 import BeautifulSoup
 import urllib.request
@@ -10,9 +11,11 @@ from datetime import datetime
 def populateDB():
     #variables para contar el número de registros que vamos a almacenar
     num_albumes = 0
+    num_autores = 0
     
     #borramos todas las tablas de la BD
     Album.objects.all().delete()
+    Autor.objects.all().delete()
     
     #extraemos los datos de la web con BS
     f = urllib.request.urlopen("https://www.elportaldemusica.es/lists/top-100-albums/2020/53")
@@ -28,7 +31,7 @@ def populateDB():
         else:
             ranking = ranking.string
         titulo = datos.find("div", class_="name").string
-        autor = datos.find("div", class_="subname").find("a", class_="external").string
+        autor = datos.find("div", class_="subname").find("a", class_="external").string.strip()
         semanas_en_lista = datos.find("div",class_="list_week").string
         maxPosicion = datos.find("div", class_="max_pos").string
         discografica = datos.find("div", class_="detail_one").string
@@ -39,16 +42,25 @@ def populateDB():
             premios = premios.string
         
         #almacenamos en la BD
+
+        lista_autores_obj = []
+        for aut in autor:
+            autor_obj, creado = Autor.objects.get_or_create(nombre=aut)
+            lista_autores_obj.append(autor_obj)
+            if creado:
+                num_autores = num_autores + 1
         a = Album.objects.create(titulo = titulo, ranking = ranking,
-                                autor = autor,
                                 semanas = semanas_en_lista,                               
                                 max_posicion = maxPosicion,
                                 discografica = discografica,
                                 premios = premios)
-        #añadimos la lista de géneros
+        #añadimos la lista de premios
+        for autores in lista_autores_obj:
+            a.autor.add(autores)
+        num_autores = num_autores + 1
         num_albumes = num_albumes + 1
 
-    return ((num_albumes))
+    return ((num_albumes,num_autores))
         
 #carga los datos desde la web en la BD
 def carga(request):
@@ -77,3 +89,21 @@ def lista_albumes(request):
 def lista_album_ranking(request):
     albumes=Album.objects.all().order_by('ranking')
     return render(request,'album-por-ranking.html', {'albumes':albumes})
+
+def lista_premios(request):
+    albumes=Album.objects.all().order_by('ranking')
+    return render(request,'album-por-ranking.html', {'albumes':albumes})
+
+
+def buscar_albumes_autor(request):
+    formulario = BusquedaPorAutorForm()
+    albumes = None
+    
+    if request.method=='POST':
+        formulario = BusquedaPorAutorForm(request.POST)      
+        if formulario.is_valid():
+            autor=Autor.objects.get(id=formulario.cleaned_data['autor'])
+            albumes = autor.album_set.all()
+            
+    return render(request, 'albumes-busqueda-por-autor.html', {'formulario':formulario, 'albumes':albumes})
+    
