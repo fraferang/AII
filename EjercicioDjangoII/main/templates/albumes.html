@@ -1,22 +1,89 @@
 
 
 {% extends 'base.html' %}
+<style>
+{% block style_css %}
+table {
+  border-collapse: collapse;
+  width: 25%;
+  margin-left: 30%;
+}
 
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {background-color: #C8DEFF;}
+
+
+ .topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #3385FF;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #3385FF;
+  color: white;
+}
+
+
+ .topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #3385FF;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #3385FF;
+  color: white;
+}
+
+ {% endblock %}
+ </style>
 {% block encabezado %}
 <h1> Albumes </h1>
 {% endblock %}
 
   {% block contenido %}
 			{% for row in albumes %}
-			
-			    <dt><b>Titulo: </b>{{row.titulo}}</dt>
-				<dt><b>Autor: </b>{{row.autor}}</dt>
-				<dt><b>Discográfica: </b>{{row.discografica}}</dt>
-				<dt><b>Ranking actual: </b>{{row.ranking}}</dt>
-				<dt><b>Premios: </b>{{row.premios}}</dt>
-				<dt><b>Semanas en lista: </b>{{row.semanas}}</dt>
-				<br>
-				<br>
-			    	    
+			<div style="overflow-x:auto;">
+ 				 <table>
+			   		 <tr><th><b>Titulo: </b></th><th>{{row.titulo}}</th></tr>
+					<tr> <td><b>Autor: </b></td><td>{{row.autor}}</td></tr>
+					 <tr> <td><b>Discográfica: </b></td><td>{{row.discografica}}</td></tr>
+					 <tr> <td><b>Ranking actual: </b></td><td>{{row.ranking}}</td></tr>
+					 <tr> <td><b>Premios: </b></td><td>{{row.premios}}</td></tr>
+					 <tr> <td><b>Semanas en lista: </b></td><td>{{row.semanas}}</td></tr>
+					 <br>
+					 <br>
+				</table>  
 			{% endfor %}
   {% endblock %}
