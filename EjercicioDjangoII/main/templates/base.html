@@ -2,28 +2,37 @@
 <html lang='es'>
 <head>
   <meta charset='utf-8'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <style>
    {% block style_css %}
-
+	
    {% endblock %}
   </style>
 </head>
 <body>
   <header> 
   	{% block encabezado %}{% endblock %}
+  	
 
- 			<dd><a href='/'>Inicio</a></dd>
-			<dd><a href='/albumes'>Lista de albumes</a></dd>
-			<dd><a href='/album-por-ranking'>Albumes agrupados por ranking</a></dd>
-			<dd><a href='/albumes-busqueda-por-autor'>Albumes agrupados por autores</a></dd>
-			<dd><a href='/albumes-busqueda-por-semanas'>Albumes agrupados por semanas</a></dd>
-			<dd><a href='/carga'>Cargar la BD</a></dd>
-			
 	<hr>
   </header>
   <section>
-    {% block contenido %}{% endblock %}
+    
   </section>
+   <div class="container">
+	<ul class="nav nav-pills">
+    <li class="active"><a href='/'>Inicio</a></li>
+    <li><a href='/albumes'>Lista de albumes</a></li>
+    <li><a href='/album-por-ranking'>Albumes agrupados por ranking</a></li>
+    <li><a href='/albumes-busqueda-por-autor'>Albumes agrupados por autores</a></li>
+    <li><a href='/albumes-busqueda-por-semanas'>Albumes agrupados por semanas</a></li>
+    <li><a href='/carga'>Cargar la BD</a></li>
+  </ul>
+</div>
+  {% block contenido %}{% endblock %}
   {% block pie %}{% endblock %} 
+  
 </body>
 </html>
