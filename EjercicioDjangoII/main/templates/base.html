@@ -8,10 +8,12 @@
   <style>
    {% block style_css %}
 /* Remove the navbar's default margin-bottom and rounded borders */ 
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
+    .imageSlider{
+    width: 35% !important;
     }
+	.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover{
+background-color: #0069FF;
+}
     
     /* Add a gray background color and some padding to the footer */
     footer {
@@ -76,13 +78,13 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <img src="https://placehold.it/1200x400?text=IMAGE" alt="Image">
+        <img class="imageSlider"  src="https://www.elportaldemusica.es/media/gallery_thumbnails/d9/d9eb35d10a6afc499b2d4508744b00b9.jpg" alt="Image">
         <div class="carousel-caption">
         </div>      
       </div>
 
       <div class="item">
-        <img src="https://placehold.it/1200x400?text=Another Image Maybe" alt="Image">
+        <img class="imageSlider" src="https://www.elportaldemusica.es/media/gallery_thumbnails/4d/4d50e6393eb18ec0db69ae0a73b24607.jpg" alt="Image">
         <div class="carousel-caption">
         </div>      
       </div>
@@ -100,7 +102,7 @@
 </div>
   
 <div class="container text-center">    
-  <h3>What We Do</h3><br>
+  <h3><a class="btn btn-primary"href='/albumes'>Ver todos los albumes</a></h3><br>
   <div class="row">
     <div class="col-sm-4">
       <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
