@@ -8,11 +8,23 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style> {% block style_css %} 
+.navbar-inverse, .carousel , .text-center{
+display: none ;
+}  
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover{
 background-color: #0069FF;
 }
 header{
 display:none;}
+#menu{
+display:block !important;
+}
+.segunda{ 
+background-color: #BEDFFF !important;
+}
+#infor{
+border: 3px solid black;
+}
 {% endblock %}</style>
 
   {% block contenido %}
@@ -38,9 +50,42 @@ display:none;}
     </div>
   </div>
 </nav>
+
+ 
+
+    
+      
+     
+
+    
 			{% for row in albumes %}
-			
-			    <dt><b>Titulo: </b>{{row.titulo}}</dt>
+				<div class="col-sm-6" >
+			     <table id="infor"class="table table-striped">
+
+    <tbody>
+      <tr class="segunda">
+        <td><b>Titulo: </b>{{row.titulo}}</td>
+        <td><b>Autores: </b>
+					{% for aut in row.autor.all %}
+						{{aut.nombre}} 
+					{% endfor %}</td>
+      </tr>
+      <tr >
+        <td><b>Discografica: </b>{{row.discografica}}</td>
+        <td><b>Ranking actual: </b>{{row.ranking}}</td>
+      </tr>
+      <tr class="segunda">
+        <td><b>Premios: </b>{{row.premios}}</td>
+        <td><b>Semanas en lista: </b></dt>
+				{% for sem in row.semanas.all %}
+						{{sem.nombre}} 
+						
+					{% endfor %}</td>
+      </tr>
+    </tbody>
+  </table>
+			   
+			  <!--  <dt><b>Titulo: </b>{{row.titulo}}</dt>
 				<dd> <b>Autores: </b>
 					{% for aut in row.autor.all %}
 						{{aut.nombre}} 
@@ -52,9 +97,10 @@ display:none;}
 				<dt><b>Semanas en lista: </b></dt>
 				{% for sem in row.semanas.all %}
 						{{sem.nombre}} 
-					{% endfor %}
-				<br>
-				<br>
+						
+					{% endfor %} -->
+								</div>
+				
 			    	    
 			{% endfor %}
   {% endblock %}
