@@ -10,5 +10,4 @@ urlpatterns = [
     path('album-por-ranking/', views.lista_album_ranking),
     path('albumes-busqueda-por-autor/', views.buscar_albumes_autor),
     path('albumes-busqueda-por-semanas/', views.buscar_albumes_semanas)
-
     ]
