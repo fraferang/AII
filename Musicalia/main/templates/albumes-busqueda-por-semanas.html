@@ -42,10 +42,16 @@ display:block !important;
     </div>
   </div>
 </nav>
-    	<form id="formulario" method="post" action=''>{% csrf_token %}
-    		{{formulario}}
-    		<input type='submit' value='Realizar Busqueda'/>
-    	</form>
+<form id="formulario" method="post" action=''>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">
+      {{formulario}}
+      {% csrf_token %}
+    </label>
+  </div>
+  <input type='submit' value='Realizar Busqueda'/>
+  
+</form>
 	    
 	    <hr>
 
