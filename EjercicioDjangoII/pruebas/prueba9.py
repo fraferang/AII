@@ -32,10 +32,8 @@ def recibir_datos():
         s = BeautifulSoup(f, "lxml")
         datos = s.find("div", class_="main-wrapper")
         concierto = datos.find("div", class_="flex-column flex-md-8 flex-sm-12").find("h1", class_="hero-title").string
-        #lugar = datos.find("div", class_="raty-wrapper").find("span").string
-#         concierto = datos.find("div", class_="eds-text-color--primary-brand eds-l-pad-bot-
-#         concierto = datos.find("div", class_="eds-text-color--primary-brand eds-l-pad-bot-1 eds-text-weight--heavy eds-text-bs")
-#         print(concierto)
+        lugar = datos.find("div", class_="raty-wrapper").find("span", style="display: block;").string
+
 
 # def recibir_datos():
 #     f = urllib.request.urlopen("https://www.eventbrite.es/d/spain/music--events/?page=1")
