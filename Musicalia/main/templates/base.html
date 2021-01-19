@@ -7,6 +7,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <style>
    {% block style_css %}
+   
 /* Remove the navbar's default margin-bottom and rounded borders */ 
     .imageSlider{
     width: 35% !important;
@@ -53,7 +54,8 @@ background-color: #0069FF;
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Logo</a>
+      <!--<a class="navbar-brand" href="#">Logo</a>-->
+     
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -115,24 +117,10 @@ background-color: #0069FF;
   
 <div class="container text-center">    
   <h3><a class="btn btn-primary"href='/albumes'>Ver todos los albumes</a></h3><br>
-  <div class="row">
-    <div class="col-sm-4">
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Current Project</p>
-    </div>
-    <div class="col-sm-4"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Project 2</p>    
-    </div>
-    <div class="col-sm-4">
-      <div class="well">
-       <p>Some text..</p>
-      </div>
-      <div class="well">
-       <p>Some text..</p>	
-      </div>
-    </div>
-  </div>
+
+  {% load static %}
+  <img src="{% static 'MUSICALIA.png' %}">
+
 </div><br>
 	<hr>
   {% block pie %}{% endblock %} 
