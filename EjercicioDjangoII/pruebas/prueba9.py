@@ -26,13 +26,14 @@ from datetime import datetime
 def recibir_datos():
     f = urllib.request.urlopen("https://entradas.correos.es/categoria/conciertos-98?page=1")
     s = BeautifulSoup(f, "lxml")
-    lista_albumes = s.find("div", class_="package-list-item-wrapper").find_all("div")
+    lista_albumes = s.find("div", class_="package-list-item-wrapper on-page-result-page").find_all("div")
     for link_album in lista_albumes:
-        f = urllib.request.urlopen(link_album.a['href'])    
+        f = urllib.request.urlopen("https://entradas.correos.es"+link_album.a['href'])  
         s = BeautifulSoup(f, "lxml")
-        datos = s.find("div", class_="package-list-item")
-        concierto =datos.find("div", class_="content").find("h4", class_="mb-0").find("a").string
-        Lugar = datos.find("ul", class_="list-info").find("span" , class_="font600").string
+        datos = s.find("div", class_="main-wrapper")
+        concierto = datos.find("div", class_="flex-column flex-md-8 flex-sm-12").find("h1", class_="hero-title").string
+        #lugar = datos.find("div", class_="raty-wrapper").find("span").string
+#         concierto = datos.find("div", class_="eds-text-color--primary-brand eds-l-pad-bot-
 #         concierto = datos.find("div", class_="eds-text-color--primary-brand eds-l-pad-bot-1 eds-text-weight--heavy eds-text-bs")
 #         print(concierto)
 
