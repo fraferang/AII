@@ -17,7 +17,34 @@ header{
 display:none;}
 #menu{
 display:block !important;
-}{% endblock %}</style>
+}
+.segunda{ 
+background-color: #BEDFFF !important;
+}
+#infor{
+border: 3px solid black;
+}
+#formulario{
+text-align:center;
+}
+select{
+border: groove;
+    margin-left: 35px;
+}
+.boton{
+background-color: #379eba;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+}
+{% endblock %}</style>
 {% block contenido %}
 
   <nav class="navbar navbar-inverse" id="menu">
@@ -28,7 +55,6 @@ display:block !important;
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Logo</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -50,7 +76,7 @@ display:block !important;
             {% csrf_token %}
           </label>
         </div>
-        <input type='submit' value='Realizar Busqueda'/>
+        <input class="boton"type='submit' value='Realizar Busqueda'/>
         
       </form>
       
@@ -60,14 +86,32 @@ display:block !important;
 		    <h3> Total de Albumes del autor:  {{ albumes|length }}</h3>
 
 			{% for row in albumes %}
-			    <dt><b>Titulo: </b>{{row.titulo}}</dt>
-                <dd> <b>Autores: </b>
+			    <div class="col-sm-6" >
+			     <table id="infor"class="table table-striped">
+
+    <tbody>
+      <tr class="segunda">
+        <td><b>Titulo: </b>{{row.titulo}}</td>
+        <td><b>Autores: </b>
 					{% for aut in row.autor.all %}
 						{{aut.nombre}} 
-					{% endfor %}
-					</dd>
-				<dt><b>Discrográfica; </b>{{row.discografica}}</dt>
-                <dt><b>Premio: </b>{{row.premios}}</dt>
+					{% endfor %}</td>
+      </tr>
+      <tr >
+        <td><b>Discografica: </b>{{row.discografica}}</td>
+        <td><b>Ranking actual: </b>{{row.ranking}}</td>
+      </tr>
+      <tr class="segunda">
+        <td><b>Premios: </b>{{row.premios}}</td>
+        <td><b>Semanas en lista: </b></dt>
+				{% for sem in row.semanas.all %}
+						{{sem.nombre}} 
+						
+					{% endfor %}</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
 			{% endfor %}
 
 		{% endif %}
