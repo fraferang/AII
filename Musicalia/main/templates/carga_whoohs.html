@@ -1,0 +1,29 @@
+{% block encabezado %}
+{% endblock %}
+
+
+
+  {% block contenido %}
+  
+ 	 
+                    {% for row in lista %}
+                    
+                    <div class="col-sm-6" >
+			     <table id="infor"class="table table-striped">
+
+    <tbody>
+      <tr class="segunda">
+        <td><b>Titulo: </b>{{row.0}}</td>
+      </tr>
+      <tr >
+      </tr>
+      <tr class="segunda">
+        <td><b>Autor: </b>{{row.1}}</td>
+        
+      </tr>
+    </tbody>
+  </table>
+  </div>
+                        
+            {% endfor %}
+{% endblock %}

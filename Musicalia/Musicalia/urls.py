@@ -10,7 +10,9 @@ urlpatterns = [
     path('albumes/', views.lista_albumes),
     path('album-por-ranking/', views.lista_album_ranking),
     path('albumes-busqueda-por-autor/', views.buscar_albumes_autor),
-    path('albumes-busqueda-por-semanas/', views.buscar_albumes_semanas)
+    path('albumes-busqueda-por-semanas/', views.buscar_albumes_semanas),
+    path('carga_whoohs/', views.mostrar_titulo_autor)
+    
     ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
