@@ -37,16 +37,17 @@ from datetime import datetime
 #         lugar = datos.find("div", class_="raty-wrapper").find("span", style="display: block;").string
 
 
-# def recibir_datos():
-#     f = urllib.request.urlopen("https://www.eventbrite.es/d/spain/music--events/?page=1")
-#     s = BeautifulSoup(f, "lxml")
-#     lista_albumes = s.find("ul", class_="search-main-content__events-list").find_all("div", class_="eds-event-card-content__primary-content")
-#     print(lista_albumes)
-#     for link_album in lista_albumes:
-#         f = urllib.request.urlopen("https://www.eventbrite.es"+link_album.a['href'])
-#         s = BeautifulSoup(f, "lxml")
-
-   
+def recibir_datos():
+    f = urllib.request.urlopen("https://www.eventbrite.es/d/spain/music--events/?page=1")
+    s = BeautifulSoup(f, "lxml")
+    lista_albumes = s.find("ul", class_="search-main-content__events-list").find_all("div")
+    for link_album in lista_albumes:
+        
+        #href="https://www.eventbrite.es/e/entradas-de-regreso-a-los-80s-sesion-especial-sabado-30-enero-136584109749?aff=ebdssbdestsearch"
+        f = urllib.request.urlopen(link_album.a['href'])
+        s = BeautifulSoup(f, "lxml")
+        titulo = s.find("h1", class_="listing-hero-title").string
+        print(titulo)
         
         
 
