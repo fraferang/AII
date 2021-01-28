@@ -126,30 +126,34 @@ def buscar_albumes_semanas(request):
     
 
         
-def almacenar_datos():
-   
-    #extraemos los datos de la web con BS
-    f = urllib.request.urlopen("https://www.elportaldemusica.es/lists/top-100-albums/2020/53")
-    s = BeautifulSoup(f, "lxml")
-    lista_albumes = s.find("div", class_="list-view").find_all("a")
+def extraer_concierto():
+    lista_concierto = []
+        
+    for i in range(1, 4):
+        lista_pagina = recibir_datos("https://www.eventbrite.es/d/spain/music--events/?page=" + str(i))
+        lista_concierto.extend(lista_pagina)
+    return lista_concierto
+
+def recibir_datos(url):
     lista = []
+    f = urllib.request.urlopen(url)
+    s = BeautifulSoup(f, "lxml")
+    lista_albumes = s.find("ul", class_="search-main-content__events-list").find_all("li")
     for link_album in lista_albumes:
-        f = urllib.request.urlopen("https://www.elportaldemusica.es"+link_album.get('href'))
+        
+        #href="https://www.eventbrite.es/e/entradas-de-regreso-a-los-80s-sesion-especial-sabado-30-enero-136584109749?aff=ebdssbdestsearch"
+        f = urllib.request.urlopen(link_album.a['href'])
         s = BeautifulSoup(f, "lxml")
-        datos = s.find("div", class_="container-fluid text-center").div
-
-        titulo = datos.find("div", class_="name").string
-        autor = datos.find("div", class_="subname").find("a", class_="external").string
-
-
-        lista.append((titulo, autor))
-
+        concierto = s.find("h1", class_="listing-hero-title").string
+        dia = s.find("p", class_="js-date-time-first-line").string
+        precio = s.find("div", class_="js-display-price").string
+        lista.append((concierto, dia, precio))
     return lista
 
 def cargar_whoosh():
     
     # define el esquema de la informaciÃ³n
-    schem = Schema(titulo=TEXT(stored=True), autor=TEXT(stored=True))
+    schem = Schema(concierto=TEXT(stored=True), dia=TEXT(stored=True),precio=TEXT(stored=True))
     
     # eliminamos el directorio del Ã­ndice, si existe
     if os.path.exists("Index"):
@@ -161,22 +165,23 @@ def cargar_whoosh():
     # creamos un writer para poder aÃ±adir documentos al indice
     writer = ix.writer()
     i = 0
-    lista = almacenar_datos()
+    lista = extraer_concierto()
     for album in lista:
-        writer.add_document(titulo=str(album[0]), autor=str(album[1]))    
+        writer.add_document(concierto=str(album[0]), dia=str(album[1]), precio=str(album[2]))    
         i += 1
     writer.commit()
     
 
-def mostrar_titulo_autor(request):
+def mostrar_concierto(request):
 
     ix = open_dir("Index")
     with ix.searcher() as searcher:
             results = searcher.all_stored_fields()
             lista = []
             for r in results:
-                titulo = r['titulo']
-                autor = r['autor']
-                lista.append((titulo,autor))
+                titulo = r['concierto']
+                autor = r['dia']
+                precio = r['precio']
+                lista.append((titulo,autor,precio))
     return render(request, 'carga_whoohs.html', {'lista':lista})
     

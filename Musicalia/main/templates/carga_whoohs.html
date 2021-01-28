@@ -1,10 +1,52 @@
 {% block encabezado %}
 {% endblock %}
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style> {% block style_css %} 
+.navbar-inverse, .carousel , .text-center{
+display: none ;
+}  
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover{
+background-color: #0069FF;
+}
+header{
+display:none;}
+#menu{
+display:block !important;
+}
+.segunda{ 
+background-color: #BEDFFF !important;
+}
+#infor{
+border: 3px solid black;
+}
+{% endblock %}</style>
 
 
   {% block contenido %}
-  
+      <nav class="navbar navbar-inverse" id="menu">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li ><a href='/'>Inicio</a></li>
+        <li ><a href='/albumes'>Lista de albumes</a></li>
+        <li><a href='/album-por-ranking'>Albumes agrupados por ranking</a></li>
+        <li ><a href='/albumes-busqueda-por-autor'>Albumes agrupados por autores</a></li>
+        <li><a href='/albumes-busqueda-por-semanas'>Albumes agrupados por semanas</a></li>
+        <li class="active"><a href='/carga_whoohs'>mostrar conciertos (Whoohs)</a></li>
+        <li><a href='/carga'>Cargar la BD</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
  	 
                     {% for row in lista %}
                     
@@ -13,12 +55,16 @@
 
     <tbody>
       <tr class="segunda">
-        <td><b>Titulo: </b>{{row.0}}</td>
+        <td><b>Concierto: </b>{{row.0}}</td>
       </tr>
       <tr >
       </tr>
+      <tr>
+        <td><b>Dia: </b>{{row.1}}</td>
+        
+      </tr>
       <tr class="segunda">
-        <td><b>Autor: </b>{{row.1}}</td>
+        <td><b>Precio: </b>{{row.2}}</td>
         
       </tr>
     </tbody>

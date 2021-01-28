@@ -3,11 +3,24 @@
 {% endblock %}
 <style> {% block style_css %} 
 
-
+.button {
+  background-color: #0069FF;
+  border: none;
+  color: white;
+  padding:7px 18px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 {% endblock %}</style>
 
 
   {% block contenido %}
   
     <h3>{{mensaje}}</h3>
+    
+    <a class="button"href='/'>Volver al Inicio</a>
   {% endblock %}
