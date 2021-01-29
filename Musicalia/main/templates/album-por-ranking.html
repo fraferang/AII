@@ -63,7 +63,10 @@ border: 3px solid black;
         <td><b>Discografica: </b>{{row.discografica}}</td>
       </tr>
       <tr class="segunda">
-        <td><b>Autor: </b>{{row.autor}}</td>
+        <td><b>Autores: </b>
+					{% for aut in row.autor.all %}
+						{{aut.nombre}} 
+					{% endfor %}</td>
         
       </tr>
     </tbody>
